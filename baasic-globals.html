@@ -1,0 +1,39 @@
+﻿<polymer-element name="baasic-globals">
+    <script>
+        (function () {
+            //a global variable would go here
+            //var baasicUser;
+
+            Polymer('baasic-globals', {
+                ready: function () {
+                    //assignment of the global singleton variable to the object instance variable
+                    //this.baasicUser = baasicUser;
+                },
+                get baasicUser() {
+                    return this.load('baasicUser') || {}; 
+                },
+                set baasicUser(val) {
+                    this.save('baasicUser', val);
+                },
+                load: function (name) {
+                    var v = localStorage.getItem(name);
+
+                    if (v === null) {
+                        return v;
+                    } else {
+                        try {
+                            v = JSON.parse(v);
+                        } catch (x) {
+
+                        }
+                        return v;
+                    }
+                },
+                save: function (name, objectToSave) {
+                    var v = JSON.stringify(objectToSave);
+                    localStorage.setItem(name, v);
+                }
+            });
+        })();
+    </script>
+</polymer-element>

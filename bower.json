@@ -1,0 +1,26 @@
+{
+  "name": "baasic-globals",
+  "version": "0.0.1",
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.3.3"
+  },
+  "authors": [
+    "denis@mono-software.com"
+  ],
+  "description": "Global variables and settings for Baasic Web components.",
+  "keywords": [
+    "polymer",
+    "web-components",
+    "baasic",
+    "globals"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/monosoftware/baasic-globals",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
