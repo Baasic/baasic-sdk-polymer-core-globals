@@ -6,14 +6,17 @@
         (function () {
             //a global variable would go here
             //var baasicUser;
-
+            var adminRoles = ['Administrators'];
             Polymer('baasic-globals', {
                 ready: function () {
                     //assignment of the global singleton variable to the object instance variable
                     //this.baasicUser = baasicUser;
+                    this.adminRoles = adminRoles;
                 },
                 get baasicUser() {
-                    return this.load('baasicUser') || {}; 
+                    var toReturn = this.load('baasicUser') || {};
+                    toReturn.isAdmin = baasicUtils.isArrayMatch(this.adminRoles, toReturn.roles);
+                    return toReturn;
                 },
                 set baasicUser(val) {
                     this.save('baasicUser', val);
