@@ -2,7 +2,7 @@
   "name": "baasic-globals",
   "version": "0.0.1",
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.3.3"
+    "polymer": "Polymer/polymer#>=0.3.3"
   },
   "authors": [
     "denis@mono-software.com"

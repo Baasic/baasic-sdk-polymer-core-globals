@@ -1,21 +1,24 @@
 ﻿<link rel="import" href="../polymer/polymer.html">
-<script type="text/javascript" src="utils.js"></script>
+<link rel="import" href="globals-import.html">
 
 <polymer-element name="baasic-globals">
     <script>
         (function () {
-            //a global variable would go here
-            //var baasicUser;
-            var adminRoles = ['Administrators'];
+            //global static vars used by other components
+            var config = {
+                adminRoles: ['Administrators'],
+                baseUrl: "http://api.baasic.local",
+                version: "beta",
+                application: "WebComponents"
+            };
             Polymer('baasic-globals', {
                 ready: function () {
-                    //assignment of the global singleton variable to the object instance variable
-                    //this.baasicUser = baasicUser;
-                    this.adminRoles = adminRoles;
+                    //assignment of the global singleton variable to the object instance variable per http://stackoverflow.com/questions/24867741/polymer-global-variables that fixes the behavior from http://www.polymer-project.org/docs/polymer/polymer.html#global
+                    this.config = config;
                 },
                 get baasicUser() {
                     var toReturn = this.load('baasicUser') || {};
-                    toReturn.isAdmin = baasicUtils.isArrayMatch(this.adminRoles, toReturn.roles);
+                    toReturn.isAdmin = baasicUtils.isArrayMatch(this.config.adminRoles, toReturn.roles);
                     return toReturn;
                 },
                 set baasicUser(val) {
