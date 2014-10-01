@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 
 if (!String.format) {
     String.format = function (format) {

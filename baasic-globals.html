@@ -1,4 +1,4 @@
-﻿<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="globals-import.html">
 
 <polymer-element name="baasic-globals">
@@ -6,10 +6,16 @@
         (function () {
             //global static vars used by other components
             var config = {
+                //Add additional admin roles here
                 adminRoles: ['Administrators'],
+                //base Baasic service URL
                 baseUrl: "http://api.baasic.local",
+                //Baasic version
                 version: "beta",
-                application: "WebComponents"
+                //Baasic application
+                application: "WebComponents",
+                //xhr arguments are used with all Ajax calls: when set to true, sync parameter is used to avoid delayed rendering for Ajax-based content
+                xhrArgs: { sync: false }
             };
             Polymer('baasic-globals', {
                 ready: function () {
