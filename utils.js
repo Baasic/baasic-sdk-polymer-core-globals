@@ -20,17 +20,18 @@ if (!String.slugify) {
     };
 }
 
-var baasicUtils = baasicUtils || {};
+var Baasic = Baasic || {};
+Baasic.Utils = Baasic.Utils || {};
 
-baasicUtils.isArrayMatch = function (target, toMatch) {
+Baasic.Utils.isArrayMatch = function (target, toMatch) {
     var found, targetMap, i, j, cur;
 
     found = false;
     targetMap = {};
 
-    if (!target || !toMatch)
+    if (!target || !toMatch) {
         return false;
-
+    }
     // Put all values in the `target` array into a map, where
     //  the keys are the values from the array
     for (i = 0, j = target.length; i < j; i++) {
@@ -49,3 +50,36 @@ baasicUtils.isArrayMatch = function (target, toMatch) {
 
     return found;
 };
+
+Baasic.Cache = (function () {
+    var cache = new Cache(-1, false, new Cache.LocalStorageCacheStorage());
+
+    var getItem = function(item) {
+        return cache.getItem(item);
+    }
+
+    var removeItem = function (item) {
+        return cache.removeItem(item);
+    }
+
+    var setItem = function (key, value, options) {
+        return cache.setItem(key, value, options);
+    }
+
+    var removeWhere = function (test) {
+        return cache.removeWhere(test);
+    }
+
+    return {
+        setItem: setItem,
+        getItem: getItem,
+        removeItem: removeItem,
+        removeWhere: removeWhere
+
+    }
+})();
+
+//Baasic.Utils.getCache = function () {
+//    var cache = new Cache(-1, false, new Cache.LocalStorageCacheStorage());
+//    return cache;
+//};

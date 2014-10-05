@@ -2,6 +2,22 @@
 <link rel="import" href="globals-import.html">
 
 <polymer-element name="baasic-globals">
+    <template>
+        <baasic-ajax id="axRoles"
+                     url="{{config.baseUrl}}/{{config.version}}/{{config.application}}/role/?rpp=100&sort=Name|asc"
+                     handleas="json"
+                     contenttype="application/json"
+                     method="GET"
+                     ></baasic-ajax>
+
+        <baasic-ajax id="axActions"
+                     url="{{config.baseUrl}}/{{config.version}}/{{config.application}}/lookup/?embed=accessAction"
+                     handleas="json"
+                     contenttype="application/json"
+                     method="GET"
+                     ></baasic-ajax>
+
+    </template>
     <script>
         (function () {
             //global static vars used by other components
@@ -14,40 +30,74 @@
                 version: "beta",
                 //Baasic application
                 application: "WebComponents",
-                //xhr arguments are used with all Ajax calls: when set to true, sync parameter is used to avoid delayed rendering for Ajax-based content
-                xhrArgs: { sync: false }
             };
+            var cacheExpiration = 7200;
             Polymer('baasic-globals', {
                 ready: function () {
                     //assignment of the global singleton variable to the object instance variable per http://stackoverflow.com/questions/24867741/polymer-global-variables that fixes the behavior from http://www.polymer-project.org/docs/polymer/polymer.html#global
                     this.config = config;
                 },
                 get baasicUser() {
-                    var toReturn = this.load('baasicUser') || {};
-                    toReturn.isAdmin = baasicUtils.isArrayMatch(this.config.adminRoles, toReturn.roles);
+                    var toReturn = Baasic.Cache.getItem('baasicUser') || {};
+                    toReturn.isAdmin = Baasic.Utils.isArrayMatch(this.config.adminRoles, toReturn.roles);
                     return toReturn;
                 },
-                set baasicUser(val) {
-                    this.save('baasicUser', val);
-                },
-                load: function (name) {
-                    var v = localStorage.getItem(name);
+                get roles() {
+                    if (!Baasic.Cache.getItem('baasicRoles')) {
+                        var axRoles = this.$.axRoles;
+                        axRoles.xhrArgs = { sync: true };
+                        axRoles.go();
+                        Baasic.Cache.setItem('baasicRoles', axRoles.response.item, {
+                            expirationAbsolute: new Date(new Date().getTime() + cacheExpiration),
+                            expirationSliding: null,
+                            priority: Cache.Priority.HIGH,
+                            callback: null
+                        });
 
-                    if (v === null) {
-                        return v;
-                    } else {
-                        try {
-                            v = JSON.parse(v);
-                        } catch (x) {
-
-                        }
-                        return v;
                     }
+                    return Baasic.Cache.getItem('baasicRoles');
                 },
-                save: function (name, objectToSave) {
-                    var v = JSON.stringify(objectToSave);
-                    localStorage.setItem(name, v);
+                get actions() {
+                    if (!Baasic.Cache.getItem('baasicActions')) {
+                        var axActions = this.$.axActions;
+                        axActions.xhrArgs = { sync: true };
+                        axActions.go();
+                        Baasic.Cache.setItem('baasicActions', axActions.response.accessAction, {
+                            expirationAbsolute: new Date(new Date().getTime() + cacheExpiration),
+                            expirationSliding: null,
+                            priority: Cache.Priority.HIGH,
+                            callback: null
+                        });
+                        
+                    }
+                    return Baasic.Cache.getItem('baasicActions');
                 }
+                //set baasicUser(val) {
+                //    Baasic.Cache.setItem('baasicUser', val, {
+                //        expirationAbsolute: null,
+                //        expirationSliding: val.expiresIn,
+                //        priority: Cache.Priority.HIGH,
+                //        callback: null
+                //    });
+                //}
+                //load: function (name) {
+                //    var v = localStorage.getItem(name);
+
+                //    if (v === null) {
+                //        return v;
+                //    } else {
+                //        try {
+                //            v = JSON.parse(v);
+                //        } catch (x) {
+
+                //        }
+                //        return v;
+                //    }
+                //},
+                //save: function (name, objectToSave) {
+                //    var v = JSON.stringify(objectToSave);
+                //    localStorage.setItem(name, v);
+                //}
             });
         })();
     </script>
