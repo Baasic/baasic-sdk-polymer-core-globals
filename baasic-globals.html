@@ -39,7 +39,7 @@
                 },
                 get baasicUser() {
                     var toReturn = Baasic.Cache.getItem('baasicUser') || {};
-                    toReturn.isAdmin = Baasic.Utils.isArrayMatch(this.config.adminRoles, toReturn.roles);
+                    //toReturn.isAdmin = Baasic.Utils.isArrayMatch(this.config.adminRoles, toReturn.roles);
                     return toReturn;
                 },
                 get roles() {
@@ -48,7 +48,7 @@
                         axRoles.xhrArgs = { sync: true };
                         axRoles.go();
                         Baasic.Cache.setItem('baasicRoles', axRoles.response.item, {
-                            expirationAbsolute: new Date(new Date().getTime() + cacheExpiration),
+                            expirationAbsolute: new Date(new Date().getTime() + (cacheExpiration * 1000)),
                             expirationSliding: null,
                             priority: Cache.Priority.HIGH,
                             callback: null
@@ -63,7 +63,7 @@
                         axActions.xhrArgs = { sync: true };
                         axActions.go();
                         Baasic.Cache.setItem('baasicActions', axActions.response.accessAction, {
-                            expirationAbsolute: new Date(new Date().getTime() + cacheExpiration),
+                            expirationAbsolute: new Date(new Date().getTime() + (cacheExpiration * 1000)),
                             expirationSliding: null,
                             priority: Cache.Priority.HIGH,
                             callback: null

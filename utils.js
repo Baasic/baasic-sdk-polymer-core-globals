@@ -79,7 +79,3 @@ Baasic.Cache = (function () {
     }
 })();
 
-//Baasic.Utils.getCache = function () {
-//    var cache = new Cache(-1, false, new Cache.LocalStorageCacheStorage());
-//    return cache;
-//};
