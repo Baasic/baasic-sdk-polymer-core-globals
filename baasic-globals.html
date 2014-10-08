@@ -1,3 +1,19 @@
+<!--
+Copyright (c) 2014 Mono d.o.o. All rights reserved.
+Code distributed by Mono as a part of the Baasic project
+-->
+
+<!--
+@group Baasic Polymer Elements
+
+The `baasic-globals` element provides support for storing global settings and lookups.
+    <baasic-globals id="globals"></baasic-globals>
+
+@element baasic-globals
+@status beta
+@homepage www.baasic.com
+-->
+
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="globals-import.html">
 
@@ -20,7 +36,10 @@
     </template>
     <script>
         (function () {
-            //global static vars used by other components
+            /**
+            * Global object storing application-wide configration settings.
+            * 
+            */
             var config = {
                 //Add additional admin roles here
                 adminRoles: ['Administrators'],
@@ -30,8 +49,9 @@
                 version: "beta",
                 //Baasic application
                 application: "WebComponents",
+                //cache expiration time for lookup storage in seconds
+                cacheExpiration: 7200
             };
-            var cacheExpiration = 7200;
             Polymer('baasic-globals', {
                 ready: function () {
                     //assignment of the global singleton variable to the object instance variable per http://stackoverflow.com/questions/24867741/polymer-global-variables that fixes the behavior from http://www.polymer-project.org/docs/polymer/polymer.html#global
@@ -39,7 +59,6 @@
                 },
                 get baasicUser() {
                     var toReturn = Baasic.Cache.getItem('baasicUser') || {};
-                    //toReturn.isAdmin = Baasic.Utils.isArrayMatch(this.config.adminRoles, toReturn.roles);
                     return toReturn;
                 },
                 get roles() {
@@ -48,7 +67,7 @@
                         axRoles.xhrArgs = { sync: true };
                         axRoles.go();
                         Baasic.Cache.setItem('baasicRoles', axRoles.response.item, {
-                            expirationAbsolute: new Date(new Date().getTime() + (cacheExpiration * 1000)),
+                            expirationAbsolute: new Date(new Date().getTime() + (this.config.cacheExpiration * 1000)),
                             expirationSliding: null,
                             priority: Cache.Priority.HIGH,
                             callback: null
@@ -63,7 +82,7 @@
                         axActions.xhrArgs = { sync: true };
                         axActions.go();
                         Baasic.Cache.setItem('baasicActions', axActions.response.accessAction, {
-                            expirationAbsolute: new Date(new Date().getTime() + (cacheExpiration * 1000)),
+                            expirationAbsolute: new Date(new Date().getTime() + (this.config.cacheExpiration * 1000)),
                             expirationSliding: null,
                             priority: Cache.Priority.HIGH,
                             callback: null
@@ -72,32 +91,6 @@
                     }
                     return Baasic.Cache.getItem('baasicActions');
                 }
-                //set baasicUser(val) {
-                //    Baasic.Cache.setItem('baasicUser', val, {
-                //        expirationAbsolute: null,
-                //        expirationSliding: val.expiresIn,
-                //        priority: Cache.Priority.HIGH,
-                //        callback: null
-                //    });
-                //}
-                //load: function (name) {
-                //    var v = localStorage.getItem(name);
-
-                //    if (v === null) {
-                //        return v;
-                //    } else {
-                //        try {
-                //            v = JSON.parse(v);
-                //        } catch (x) {
-
-                //        }
-                //        return v;
-                //    }
-                //},
-                //save: function (name, objectToSave) {
-                //    var v = JSON.stringify(objectToSave);
-                //    localStorage.setItem(name, v);
-                //}
             });
         })();
     </script>

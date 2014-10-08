@@ -12,44 +12,43 @@ if (!String.format) {
 if (!String.slugify) {
     String.slugify = function (input) {
         return input
-            .replace(/^\s\s*/, '') // Trim start
-            .replace(/\s\s*$/, '') // Trim end
-            .toLowerCase() // Camel case is bad
-            .replace(/[^a-z0-9_\-~!\+\s]+/g, '') // Exchange invalid chars
-            .replace(/[\s]+/g, '-'); // Swap whitespace for single hyphen
+            .replace(/^\s\s*/, '') 
+            .replace(/\s\s*$/, '') 
+            .toLowerCase() 
+            .replace(/[^a-z0-9_\-~!\+\s]+/g, '') 
+            .replace(/[\s]+/g, '-'); 
     };
 }
 
 var Baasic = Baasic || {};
-Baasic.Utils = Baasic.Utils || {};
 
-Baasic.Utils.isArrayMatch = function (target, toMatch) {
-    var found, targetMap, i, j, cur;
+Baasic.Utils = (function () {
+    var isArrayMatch = function (target, toMatch) {
+        var found, targetMap, i, j, cur;
 
-    found = false;
-    targetMap = {};
+        found = false;
+        targetMap = {};
 
-    if (!target || !toMatch) {
-        return false;
-    }
-    // Put all values in the `target` array into a map, where
-    //  the keys are the values from the array
-    for (i = 0, j = target.length; i < j; i++) {
-        cur = target[i];
-        targetMap[cur] = true;
-    }
+        if (!target || !toMatch) {
+            return false;
+        }
+       
+        for (i = 0, j = target.length; i < j; i++) {
+            cur = target[i];
+            targetMap[cur] = true;
+        }
 
-    // Loop over all items in the `toMatch` array and see if any of
-    //  their values are in the map from before
-    for (i = 0, j = toMatch.length; !found && (i < j) ; i++) {
-        cur = toMatch[i];
-        found = !!targetMap[cur];
-        // If found, `targetMap[cur]` will return true, otherwise it
-        //  will return `undefined`...that's what the `!!` is for
+        for (i = 0, j = toMatch.length; !found && (i < j) ; i++) {
+            cur = toMatch[i];
+            found = !!targetMap[cur];
+        }
+        return found;
     }
 
-    return found;
-};
+    return {
+        isArrayMatch: isArrayMatch
+    }
+})();
 
 Baasic.Cache = (function () {
     var cache = new Cache(-1, false, new Cache.LocalStorageCacheStorage());
@@ -75,7 +74,6 @@ Baasic.Cache = (function () {
         getItem: getItem,
         removeItem: removeItem,
         removeWhere: removeWhere
-
     }
 })();
 
