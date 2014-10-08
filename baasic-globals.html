@@ -62,34 +62,23 @@ The `baasic-globals` element provides support for storing global settings and lo
                     return toReturn;
                 },
                 get roles() {
-                    if (!Baasic.Cache.getItem('baasicRoles')) {
-                        var axRoles = this.$.axRoles;
-                        axRoles.xhrArgs = { sync: true };
-                        axRoles.go();
-                        Baasic.Cache.setItem('baasicRoles', axRoles.response.item, {
-                            expirationAbsolute: new Date(new Date().getTime() + (this.config.cacheExpiration * 1000)),
-                            expirationSliding: null,
-                            priority: Cache.Priority.HIGH,
-                            callback: null
-                        });
-
-                    }
-                    return Baasic.Cache.getItem('baasicRoles');
+                    return this.getFromCache(this.$.axRoles, 'baasicRoles', 'item');
                 },
                 get actions() {
-                    if (!Baasic.Cache.getItem('baasicActions')) {
-                        var axActions = this.$.axActions;
-                        axActions.xhrArgs = { sync: true };
-                        axActions.go();
-                        Baasic.Cache.setItem('baasicActions', axActions.response.accessAction, {
+                    return this.getFromCache(this.$.axActions, 'baasicActions', 'accessAction');
+                },
+                getFromCache: function (ajax, cacheKey, collectionKey) {
+                    if (!Baasic.Cache.getItem(cacheKey)) {
+                        ajax.xhrArgs = { sync: true };
+                        ajax.go();
+                        Baasic.Cache.setItem(cacheKey, ajax.response[collectionKey], {
                             expirationAbsolute: new Date(new Date().getTime() + (this.config.cacheExpiration * 1000)),
                             expirationSliding: null,
                             priority: Cache.Priority.HIGH,
                             callback: null
                         });
-                        
                     }
-                    return Baasic.Cache.getItem('baasicActions');
+                    return Baasic.Cache.getItem(cacheKey);
                 }
             });
         })();
