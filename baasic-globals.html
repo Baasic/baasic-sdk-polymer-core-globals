@@ -17,7 +17,7 @@ The `baasic-globals` element provides support for storing global settings and lo
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="globals-import.html">
 
-<polymer-element name="baasic-globals">
+<polymer-element name="baasic-globals" hidden>
     <template>
         <baasic-ajax id="axRoles"
                      url="{{config.baseUrl}}/{{config.version}}/{{config.application}}/role/?rpp=100&sort=Name|asc"
@@ -44,7 +44,7 @@ The `baasic-globals` element provides support for storing global settings and lo
                 //Add additional admin roles here
                 adminRoles: ['Administrators'],
                 //base Baasic service URL
-                baseUrl: "http://api.baasic.local",
+                baseUrl: "http://api.baasic.com",
                 //Baasic version
                 version: "beta",
                 //Baasic application

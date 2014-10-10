@@ -1,7 +1,7 @@
 {
   "name": "baasic-globals",
   "dependencies": {
-    "polymer": "Polymer/polymer#>=0.3.3",
+    "polymer": "Polymer/polymer#>=0.4.2",
     "jscache":  "monsur/jscache"
   },
   "authors": [
