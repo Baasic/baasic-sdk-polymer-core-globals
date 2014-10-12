@@ -46,7 +46,7 @@ Baasic.Utils = (function () {
     }
 
     return {
-        isArrayMatch: isArrayMatch
+        isArrayMatch: isArrayMatch,
     }
 })();
 
