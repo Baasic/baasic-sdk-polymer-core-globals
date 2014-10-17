@@ -11,7 +11,7 @@
 Install the component using [Bower](http://bower.io/):
 
 ```sh
-$ bower install baasic-sdk-polymer-core-globals --save
+$ bower install baasic-globals --save
 ```
 
 Or download the source code and install it manually in your projects.
