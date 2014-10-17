@@ -1,21 +1,19 @@
 {
-  "name": "baasic-globals",
+  "name": "baasic-sdk-polymer-core-globals",
   "dependencies": {
     "polymer": "Polymer/polymer#>=0.4.2",
     "jscache":  "monsur/jscache"
   },
-  "authors": [
-    "denis@mono-software.com"
-  ],
   "description": "Global variables and settings for Baasic Web components.",
   "keywords": [
     "polymer",
     "web-components",
     "baasic",
-    "globals"
+    "globals",
+    "configuration"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/monosoftware/baasic-globals",
+  "homepage": "https://github.com/baasic/baasic-sdk-polymer-core-globals.git",
   "ignore": [
     "**/.*",
     "node_modules",
