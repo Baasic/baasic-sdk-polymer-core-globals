@@ -20,14 +20,14 @@ The `baasic-globals` element provides support for storing global settings and lo
 <polymer-element name="baasic-globals" hidden>
     <template>
         <baasic-ajax id="axRoles"
-                     url="{{config.baseUrl}}/{{config.version}}/{{config.application}}/role/?rpp=100&sort=Name|asc"
+                     url="{{config.baseUrl}}/{{config.version}}/{{config.application}}/roles/?rpp=100&sort=Name|asc"
                      handleas="json"
                      contenttype="application/json"
                      method="GET"
                      ></baasic-ajax>
 
         <baasic-ajax id="axActions"
-                     url="{{config.baseUrl}}/{{config.version}}/{{config.application}}/lookup/?embed=accessAction"
+                     url="{{config.baseUrl}}/{{config.version}}/{{config.application}}/lookups/?embed=accessAction"
                      handleas="json"
                      contenttype="application/json"
                      method="GET"
