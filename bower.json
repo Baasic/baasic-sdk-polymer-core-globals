@@ -1,9 +1,9 @@
 {
   "name": "baasic-sdk-polymer-core-globals",
-  "dependencies": {
-    "polymer": "Polymer/polymer#>=0.4.2",
-    "jscache":  "monsur/jscache"
-  },
+  "version": "1.0.0",
+  "authors": [
+    "Anonymous <anonymous@example.com>"
+  ],
   "description": "Global variables and settings for Baasic Web components.",
   "keywords": [
     "polymer",
@@ -12,13 +12,20 @@
     "globals",
     "configuration"
   ],
+  "main": "baasic-globals.html",
   "license": "MIT",
   "homepage": "https://github.com/baasic/baasic-sdk-polymer-core-globals.git",
   "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+    "/.*",
+    "/test/",
+    "/demo/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "jscache":  "monsur/jscache"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "*"
+  }
 }

@@ -1,5 +1,7 @@
 'use strict';
 
+var Baasic = Baasic || {};
+
 if (!String.format) {
     String.format = function (format) {
         var args = Array.prototype.slice.call(arguments, 1);
@@ -19,8 +21,6 @@ if (!String.slugify) {
             .replace(/[\s]+/g, '-'); 
     };
 }
-
-var Baasic = Baasic || {};
 
 Baasic.Utils = (function () {
     var isArrayMatch = function (target, toMatch) {

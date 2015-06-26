@@ -1,0 +1,77 @@
+﻿<script>
+    var Baasic = Baasic || {};
+    Baasic.Ajax = {
+        go: function (url, method, body, authorization, contentType) {
+            var baasicUser = Baasic.Cache.getItem('baasicUser');
+            var promise = new Promise(function (resolve, reject) {
+                var authHeader = '';
+                if (baasicUser && baasicUser.accessToken) {
+                    authHeader = baasicUser.tokenType + ' ' + baasicUser.accessToken;
+                    //referesh token sliding expiration time
+                    baasicUser.expiresAbsolute = new Date(new Date().getTime() + (baasicUser.expiresIn * 1000));
+                    Baasic.Cache.setItem('baasicUser', baasicUser, {
+                        expirationAbsolute: baasicUser.expiresAbsolute,
+                        expirationSliding: null,
+                        priority: Cache.Priority.HIGH,
+                        callback: null
+                    });
+                }
+                else {
+                    authHeader = '';
+                }
+            
+                fetch(url, {
+                    method: ((method) ? method : 'GET'),
+                    body: ((body) ? body : null),
+                    headers: {
+                        'Authorization': ((!authorization) ? authHeader : authorization),
+                        'Content-Type': ((!contentType) ? 'application/json' : contentType)
+                    }
+                })
+                .then(function (response) {
+                    if (response.status >= 200 && response.status < 300) {
+                        return Promise.resolve(response);
+                    } else {
+                        return Promise.reject(new Error(response.statusText));
+                    }
+                })
+                .then(function(response) {
+                    if (response)
+                        return Promise.resolve(response.json());
+                    else
+                        return Promise.reject(new Error('No response content'));                
+                })
+                .then(function (data) {
+                    resolve(data);
+                }).catch(function (error) {
+                    console.log(error);
+                    reject(error);
+                })
+            })
+            return promise;
+        },
+        getFromCache: function (url, cacheKey, collectionKey, cacheExpiration) {
+            var _this = this;
+            return new Promise(function (resolve, reject) {
+                if (!Baasic.Cache.getItem(cacheKey)) {
+                    Baasic.Ajax.go(url).then(function (response) {
+                        Baasic.Cache.setItem(cacheKey, response[collectionKey], {
+                            expirationAbsolute: new Date(new Date().getTime() + (cacheExpiration * 1000)),
+                            expirationSliding: null,
+                            priority: Cache.Priority.HIGH,
+                            callback: null
+                        }); 
+                        resolve({ data: response[collectionKey] });
+                    }, function (error) {
+                        reject({ data: null });
+                    }.bind(_this));
+                }
+                else {
+                    resolve({ data: Baasic.Cache.getItem(cacheKey) });
+                }
+            });
+        }
+
+
+    }
+</script>

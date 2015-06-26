@@ -1,0 +1,37 @@
+﻿<script>
+    var Baasic = Baasic || {};
+
+    Baasic.Config = {
+        properties: {
+            //Add additional admin roles here
+            adminRoles: {
+                type: Array,
+                //we are using shared object, otherwise it would be value: function() { return ['Administrators']; }
+                value: ['Administrators']
+            },
+            //base Baasic service URL
+            baseUrl: {
+                type: String,
+                value: "http://api.baasic.local"
+            },
+            //Baasic version
+            version: {
+                type: String,
+                value: "beta"
+            },
+            //Baasic application
+            application: {
+                type: String,
+                value: "WebComponents"
+            },
+            //cache expiration time for lookup storage in seconds
+            cacheExpiration: {
+                type: Number,
+                value: 7200
+            }
+        }
+    }
+
+    
+
+</script>
