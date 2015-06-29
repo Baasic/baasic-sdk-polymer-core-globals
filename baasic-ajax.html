@@ -35,11 +35,15 @@
                         return Promise.reject(new Error(response.statusText));
                     }
                 })
-                .then(function(response) {
-                    if (response)
+                .then(function (response) {
+                    if (response && response.headers.get("Content-Type") && response.headers.get("Content-Type").indexOf('json') > -1) {
                         return Promise.resolve(response.json());
-                    else
-                        return Promise.reject(new Error('No response content'));                
+                    } else {
+                        if (response)
+                            return Promise.resolve(response);
+                        else
+                            return Promise.reject(new Error('No response content'));
+                    }
                 })
                 .then(function (data) {
                     resolve(data);

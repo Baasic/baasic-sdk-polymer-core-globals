@@ -38,29 +38,16 @@ Once running, you can preview your element at
 
 1. Import Web Components' polyfill:
 
-    ```html
+    ```
     <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     ```
-
+    
 2. Import Custom Element:
 
-    ```html
+    ```
     <link rel="import" href="bower_components/baasic-globals/baasic-globals.html">
     ```
-
 3. Start using it! This library includes behaviors only (Ajax, config, etc.), there are no Polymer elements here!
-
-## Contributing
-
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -m 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
-
-## History
-
-For detailed changelog, check [Releases](https://github.com/baasic/baasic-sdk-polymer-core-globals/releases).
 
 ## Testing Your Element
 
@@ -85,3 +72,16 @@ Then, you can run your tests on _all_ of your local browsers via:
 `wct -p` will keep the browsers alive after test runs (refresh to re-run).
 
 `wct test/some-file.html` will test only the files you specify.
+
+## Contributing
+
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :D
+
+## History
+
+For detailed changelog, check [Releases](https://github.com/baasic/baasic-sdk-polymer-core-globals/releases).
+
