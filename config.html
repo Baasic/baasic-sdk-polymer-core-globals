@@ -1,33 +1,52 @@
-﻿<script>
+﻿<!--
+The Baasic Config behavior provides support for configuration parameters that are used in all elements to enable code reuse.
+@homepage www.baasic.com
+-->
+<script>
     var Baasic = Baasic || {};
 
     Baasic.Config = {
         properties: {
-            //Add additional admin roles here
+            /**
+            * Roles that have administrative privileges in the target application.
+            */
             adminRoles: {
                 type: Array,
                 //we are using shared object, otherwise it would be value: function() { return ['Administrators']; }
-                value: ['Administrators']
+                value: ['Administrators'],
+                notify: true
             },
-            //base Baasic service URL
+            /**
+            * Baasic service base URL.
+            */
             baseUrl: {
                 type: String,
-                value: "http://api.baasic.local"
+                value: "http://api.baasic.local",
+                notify: true
             },
-            //Baasic version
+            /**
+            * Baasic version.
+            */
             version: {
                 type: String,
-                value: "beta"
+                value: "beta",
+                notify: true
             },
-            //Baasic application
+            /**
+            * Name of the Baasic applciation.
+            */
             application: {
                 type: String,
-                value: "WebComponents"
+                value: "WebComponents",
+                notify: true
             },
-            //cache expiration time for lookup storage in seconds
+            /**
+            * Cache expiration for lookups storage in seconds.
+            */
             cacheExpiration: {
                 type: Number,
-                value: 7200
+                value: 7200,
+                notify: true
             }
         }
     }

@@ -1,6 +1,15 @@
-﻿<script>
+﻿<!--
+The Baasic Ajax behavior is used as a replacement for the iron-ajax element - smaller, simpler, non-declarative, promise-based. Reused on most of the Baasic controls.
+Uses new Fetch API instead of XmlHttpRequest. Used ES 6 promises, if not available in a target browser, a polyfill is provided. 
+Since Polymer currently only supports extending native HTML elements, this is the simpler way of adding custom beahvior, like checking for saved credentials in the local cache and adding them to each request.
+@homepage www.baasic.com
+-->
+<script>
     var Baasic = Baasic || {};
     Baasic.Ajax = {
+        /**
+        * Go method performs a HTTP request to the URL specified in the param list. User can specify method, body content, authorization fields and a content type of the request.
+        */
         go: function (url, method, body, authorization, contentType) {
             var baasicUser = Baasic.Cache.getItem('baasicUser');
             var promise = new Promise(function (resolve, reject) {
@@ -54,6 +63,9 @@
             })
             return promise;
         },
+        /**
+        * Retrieves an object from the local cache based on its key.
+        */
         getFromCache: function (url, cacheKey, collectionKey, cacheExpiration) {
             var _this = this;
             return new Promise(function (resolve, reject) {
