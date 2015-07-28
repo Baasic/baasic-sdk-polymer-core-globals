@@ -20,7 +20,7 @@
     "polymer": "Polymer/polymer#^1.0.0",
     "jscache": "monsur/jscache",
     "es6-promise": "components/es6-promise#^2.2.0",
-    "fetch": "github/fetch.git"
+    "fetch": "github/fetch"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
