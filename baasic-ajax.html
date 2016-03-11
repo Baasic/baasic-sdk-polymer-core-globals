@@ -28,15 +28,18 @@ Since Polymer currently only supports extending native HTML elements, this is th
                 else {
                     authHeader = '';
                 }
-            
-                fetch(url, {
+                var objectRequest = {
                     method: ((method) ? method : 'GET'),
-                    body: ((body) ? body : null),
                     headers: {
                         'Authorization': ((!authorization) ? authHeader : authorization),
                         'Content-Type': ((!contentType) ? 'application/json' : contentType)
-                    }
-                })
+                    };
+                // body forbidden for GET and HEAD HTTP requests    
+                if (['GET','HEAD'].indexOf(method) == -1 && body ){
+                    objectRequest.body = body;
+                }
+            
+                fetch(url, objectRequest)
                 .then(function (response) {
                     if (response.status >= 200 && response.status < 300) {
                         return Promise.resolve(response);
